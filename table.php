@@ -25,8 +25,8 @@ include('config.php');
             <td><?php echo $student['email']; ?></td>
             <td><?php echo $student['phone']; ?></td>
             <td><?php echo $student['course']; ?></td>
-            <td><button>Edit</button></td>
-            <td><button>Delete</button></td>
+            <td><button type="button" value="<?php echo $student['id']; ?>" class="editBtn btn btn-success">Edit</button></td>
+            <td><button type="button" value="<?=$student['id'];?>" class="deleteStudentBtn btn btn-danger btn-sm">Delete</button></td>
         </tr>
     <?php
     }
