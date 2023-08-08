@@ -100,16 +100,17 @@ if(isset($_POST['update_student'])){
     }
 }
 if(isset($_GET['delete_student'])){
-    $student_id = $_GET['student_id']; // Doğru GET parametresini alın
+    $student_id = $_GET['delete_student']; // Doğru GET parametresini alın
 
     $query = "DELETE FROM students WHERE id=?";
     $q = $db->prepare($query);
     $result = $q->execute([$student_id]); // ID'yi execute'ye verin
 
-    if($result && $q->rowCount() > 0){
+    if($result){
         $res = [
             'status' => 200,
             "message" => "Successful",
+            "data" => $result
         ];
 
         echo json_encode($res);
@@ -117,6 +118,7 @@ if(isset($_GET['delete_student'])){
         $res = [
             'status' => 500,
             "message" => "Student delete failed",
+            "data" => null
         ];
 
         echo json_encode($res);

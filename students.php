@@ -248,7 +248,7 @@
 
 
     // Delete Student
-    $(document).on('click', '.deleteStudentBtn', function (e) {
+    $(document).on('click', '#deleteStudentBtn', function (e) {
         e.preventDefault();
 
         if(confirm('Are you sure you want to delete this data?'))
@@ -257,21 +257,15 @@
 
             $.ajax({
                 type: "GET",
-                url: "code.php",
-                data: {
-                    'delete_student': true,
-                    'student_id': student_id
-                },
+                url: "code.php?delete_student="+ student_id,
+                
                 success: function (response) {
                     console.log(response)
                     var res = jQuery.parseJSON(response);
-                    if(res.status == 500) {
+                    if(res.status == 200) {
 
                         alert(res.message);
-                    }else{
-                        alertify.set('notifier','position', 'top-right');
-                        alertify.success(res.message);
-
+                        
                         $.ajax({
                         url: 'table.php', // Tablo içeriğini barındıran dosya
                         type: 'GET',
@@ -283,7 +277,12 @@
                             console.log('Tablo güncelleme hatası');
                         }
                     });
-                }
+                    }else{
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.success(res.message);
+
+                        
+                    }
                 }
             });
         }
